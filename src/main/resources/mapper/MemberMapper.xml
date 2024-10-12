@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.javalab.board.repository.MemberMapper">
+
+    <!-- Member ResultMap -->
+    <resultMap id="memberMap" type="com.javalab.board.vo.MemberVo">
+        <id property="memberId" column="member_id"/>
+        <result property="password" column="password"/>
+        <result property="name" column="name"/>
+        <result property="email" column="email"/>
+        <result property="point" column="point"/>
+        <result property="del" column="del"/>
+        <result property="social" column="social"/>
+        <collection property="roles" ofType="com.javalab.board.vo.Role" resultMap="roleResultMap"/>
+    </resultMap>
+
+    <!-- Role ResultMap -->
+    <resultMap id="roleResultMap" type="com.javalab.board.vo.Role">
+        <result property="roleId" column="role_id"/>
+        <result property="roleName" column="role_name"/>
+    </resultMap>
+
+    <!-- 회원 아이디를 통해 회원 정보 조회 -->
+    <select id="findMemberById" parameterType="string" resultMap="memberMap">
+        SELECT m.member_id,
+        m.password,
+        m.name,
+        m.email,
+        m.point,
+        m.del,
+        m.social,
+        ro.role_id,
+        ro.role_name
+        FROM member m
+        LEFT JOIN member_role mr ON m.member_id = mr.member_id
+        LEFT JOIN role ro ON mr.role_id = ro.role_id
+        WHERE m.member_id = #{memberId}
+    </select>
+
+    <!-- 소셜로그인시 이메일을 통해 회원 정보 조회 -->
+    <select id="login" parameterType="string" resultMap="memberMap">
+        SELECT m.member_id,
+        m.password,
+        m.name,
+        m.email,
+        m.point,
+        m.del,
+        m.social,
+        ro.role_id,
+        ro.role_name
+        FROM member m
+        LEFT JOIN member_role mr ON m.member_id = mr.member_id
+        LEFT JOIN role ro ON mr.role_id = ro.role_id
+        WHERE m.email = #{email}
+    </select>
+
+    <!-- 모든 회원 정보 조회 -->
+    <select id="findAllMembers" resultMap="memberMap">
+        SELECT m.member_id,
+        m.password,
+        m.name,
+        m.email,
+        m.point,
+        m.del,
+        m.social,
+        ro.role_id,
+        ro.role_name
+        FROM member m
+        LEFT JOIN member_role mr ON m.member_id = mr.member_id
+        LEFT JOIN role ro ON mr.role_id = ro.role_id
+    </select>
+
+    <!-- 새로운 회원 저장 -->
+    <insert id="save" parameterType="com.javalab.board.vo.MemberVo">
+        INSERT INTO member (member_id, password, name, email, point, del, social)
+        VALUES (#{memberId}, #{password}, #{name}, #{email}, #{point}, #{del}, #{social})
+    </insert>
+
+    <!-- 회원의 역할 저장 -->
+    <insert id="saveRole">
+        INSERT INTO member_role (member_id, role_id)
+        VALUES (#{memberId}, #{roleId})
+    </insert>
+
+    <!-- 회원 정보 업데이트 -->
+    <update id="update" parameterType="com.javalab.board.vo.MemberVo">
+        UPDATE member
+        SET
+        password = #{password},
+        name = #{name},
+        email = #{email},
+        point = #{point},
+        del = #{del},
+        social = #{social}
+        WHERE member_id = #{memberId}
+    </update>
+
+    <!-- 회원 삭제 -->
+    <delete id="delete" parameterType="string">
+        DELETE FROM member WHERE member_id = #{memberId}
+    </delete>
+
+    <!-- 비밀번호 및 소셜 로그인 상태 수정 -->
+    <update id="modifyPasswordAndSocialStatus">
+        UPDATE member
+        SET
+        password = #{encodedPassword},
+        social = 0
+        WHERE email = #{email}
+    </update>
+
+</mapper>

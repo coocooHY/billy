@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout/layout.html}">
+
+<head>
+    <title layout:fragment="title">회원 정보 수정</title>
+</head>
+
+<div layout:fragment="content">
+    <div class="container">
+        <h3 layout:fragment="body-title">회원 정보 수정</h3>
+        <div class="mt-5">
+            <form th:action="@{/member/update.do}" th:object="${memberFormDto}" method="post">
+                <div class="form-group">
+                    <label for="memberId">아이디</label>
+                    <input type="text" id="memberId" th:field="*{memberId}" class="form-control" readonly />
+                </div>
+                <div class="form-group">
+                    <label for="password">비밀번호</label>
+                    <input type="password" id="password" th:field="*{password}" class="form-control" />
+                    <small class="text-danger" th:if="${errorMap != null and errorMap.containsKey('password')}" th:text="${errorMap.get('password')}"></small>
+                </div>
+                <div class="form-group">
+                    <label for="name">이름</label>
+                    <input type="text" id="name" th:field="*{name}" class="form-control" />
+                    <small class="text-danger" th:if="${errorMap != null and errorMap.containsKey('name')}" th:text="${errorMap.get('name')}"></small>
+                </div>
+                <div class="form-group">
+                    <label for="email">이메일</label>
+                    <input type="email" id="email" th:field="*{email}" class="form-control" />
+                    <small class="text-danger" th:if="${errorMap != null and errorMap.containsKey('email')}" th:text="${errorMap.get('email')}"></small>
+                </div>
+                <button type="submit" class="btn btn-primary mt-1">수정</button>
+            </form>
+        </div>
+    </div>
+</div>

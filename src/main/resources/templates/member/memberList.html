@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout/layout.html}">
+
+<head>
+    <title layout:fragment="title">회원 목록</title>
+</head>
+
+<div layout:fragment="content">
+    <div class="container">
+        <h3 layout:fragment="body-title">회원 목록</h3>
+        <table class="table table-hover">
+            <thead>
+            <tr>
+                <th>아이디</th>
+                <th>이름</th>
+                <th>이메일</th>
+                <th>포인트</th>
+                <th>권한</th>
+                <th>수정</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="member : ${memberList}">
+                <td th:text="${member.memberId}">아이디</td>
+                <td th:text="${member.name}">이름</td>
+                <td th:text="${member.email}">이메일</td>
+                <td th:text="${member.point}">포인트</td>
+                <td th:text="${member.roles}">권한</td>
+                <td>
+                    <a th:href="@{/member/update.do/{memberId}(memberId=${member.memberId})}" class="btn btn-primary btn-sm">수정</a>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
