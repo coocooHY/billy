@@ -27,7 +27,6 @@
         $(window).resize(toggleNavbarMethod);
     });
 
-
     // Modal Video
     $(document).ready(function () {
         var $videoSrc;
@@ -44,8 +43,7 @@
             $("#video").attr('src', $videoSrc);
         })
     });
-    
-    
+
     // Back to top button
     $(window).scroll(function () {
         if ($(this).scrollTop() > 100) {
@@ -59,7 +57,6 @@
         return false;
     });
 
-
     // Product carousel
     $(".product-carousel").owlCarousel({
         autoplay: true,
@@ -67,27 +64,26 @@
         margin: 45,
         dots: false,
         loop: true,
-        nav : true,
-        navText : [
+        nav: true,
+        navText: [
             '<i class="bi bi-arrow-left"></i>',
             '<i class="bi bi-arrow-right"></i>'
         ],
         responsive: {
-            0:{
-                items:1
+            0: {
+                items: 1
             },
-            768:{
-                items:2
+            768: {
+                items: 2
             },
-            992:{
-                items:3
+            992: {
+                items: 3
             },
-            1200:{
-                items:4
+            1200: {
+                items: 4
             }
         }
     });
-
 
     // Team carousel
     $(".team-carousel").owlCarousel({
@@ -96,27 +92,26 @@
         margin: 45,
         dots: false,
         loop: true,
-        nav : true,
-        navText : [
+        nav: true,
+        navText: [
             '<i class="bi bi-arrow-left"></i>',
             '<i class="bi bi-arrow-right"></i>'
         ],
         responsive: {
-            0:{
-                items:1
+            0: {
+                items: 1
             },
-            768:{
-                items:2
+            768: {
+                items: 2
             },
-            992:{
-                items:3
+            992: {
+                items: 3
             },
-            1200:{
-                items:4
+            1200: {
+                items: 4
             }
         }
     });
-
 
     // Testimonials carousel
     $(".testimonial-carousel").owlCarousel({
@@ -125,12 +120,11 @@
         items: 1,
         dots: false,
         loop: true,
-        nav : true,
-        navText : [
+        nav: true,
+        navText: [
             '<i class="bi bi-arrow-left"></i>',
             '<i class="bi bi-arrow-right"></i>'
         ],
     });
-    
-})(jQuery);
 
+})(jQuery);
