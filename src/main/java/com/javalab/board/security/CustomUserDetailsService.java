@@ -1,9 +1,9 @@
 package com.javalab.board.security;
 
 import com.javalab.board.dto.CustomUser;
-import com.javalab.board.dto.MemberDto;
-import com.javalab.board.repository.MemberMapper;
-import com.javalab.board.vo.MemberVo;
+import com.javalab.board.dto.PersonDto;
+import com.javalab.board.repository.PersonMapper;
+import com.javalab.board.vo.PersonVo;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -18,17 +18,17 @@ import org.springframework.transaction.annotation.Transactional;
 @Slf4j
 public class CustomUserDetailsService implements UserDetailsService {
 
-    private final MemberMapper memberMapper;
+    private final PersonMapper personMapper;
 
     // 실제 인증 진행(DB에 회원 ID로 사용자 정보 조회)
     @Override
-    public UserDetails loadUserByUsername(String memberId) throws UsernameNotFoundException {
+    public UserDetails loadUserByUsername(String personId) throws UsernameNotFoundException {
 
-        MemberVo memberVo = memberMapper.findMemberById(memberId);
+        PersonVo personVo = personMapper.findPersonById(personId);
 
-        if (memberVo == null) {
-            throw new UsernameNotFoundException(memberId);
+        if (personVo == null) {
+            throw new UsernameNotFoundException(personId);
         }
-        return new CustomUser(memberVo);
+        return new CustomUser(personVo);
     }
 }

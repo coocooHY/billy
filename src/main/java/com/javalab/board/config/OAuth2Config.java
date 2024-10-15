@@ -1,7 +1,7 @@
 package com.javalab.board.config;
 
 import com.javalab.board.security.CustomOAuth2UserService;
-import com.javalab.board.service.MemberService;
+import com.javalab.board.service.PersonService;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -23,7 +23,7 @@ public class OAuth2Config {
      * - OAuth2UserService 인터페이스를 구현한 CustomOAuth2UserService 빈 등록
      */
     @Bean
-    public OAuth2UserService<OAuth2UserRequest, OAuth2User> customOAuth2UserService(MemberService memberService, PasswordEncoder passwordEncoder) {
-        return new CustomOAuth2UserService(memberService, passwordEncoder);
+    public OAuth2UserService<OAuth2UserRequest, OAuth2User> customOAuth2UserService(PersonService personService, PasswordEncoder passwordEncoder) {
+        return new CustomOAuth2UserService(personService, passwordEncoder);
     }
 }

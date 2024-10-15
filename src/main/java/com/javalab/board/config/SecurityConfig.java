@@ -4,7 +4,7 @@ import com.javalab.board.security.handler.AuthFailureHandler;
 import com.javalab.board.security.handler.AuthSucessHandler;
 import com.javalab.board.security.CustomOAuth2UserService;
 import com.javalab.board.security.handler.CustomAccessDeniedHandler;
-import com.javalab.board.security.handler.CustomSocialLoginSuccessHandler;
+//import com.javalab.board.security.handler.CustomSocialLoginSuccessHandler;
 import com.javalab.board.security.CustomUserDetailsService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -40,10 +40,10 @@ public class SecurityConfig {
 		return new CustomAccessDeniedHandler();
 	}
 
-	@Bean
-	public AuthenticationSuccessHandler authenticationSuccessHandler() {	// 소셜 로그인 성공 후처리를 담당하는 빈
-		return new CustomSocialLoginSuccessHandler(passwordEncoder());
-	}
+//	@Bean
+//	public AuthenticationSuccessHandler authenticationSuccessHandler() {	// 소셜 로그인 성공 후처리를 담당하는 빈
+//		return new CustomSocialLoginSuccessHandler(passwordEncoder());
+//	}
 
 	/**
 	 * [securityFilterChain 메소드]
@@ -103,6 +103,11 @@ public class SecurityConfig {
 		http.authenticationManager(auth.build());	// 인증 매니저 설정
 
 		return http.build();	// 설정한 HttpSecurity 객체 반환
+	}
+
+	@Bean
+	public AuthenticationSuccessHandler authenticationSuccessHandler() {
+		return authSucessHandler; // 이미 선언된 authSucessHandler 사용
 	}
 
 
