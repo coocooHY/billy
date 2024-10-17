@@ -18,7 +18,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.javalab.board.service.BoardService;
 import com.javalab.board.vo.BoardVo;
-import com.javalab.board.vo.MemberVo;
+import com.javalab.board.vo.PersonVo;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -79,11 +79,11 @@ public class BoardController {
 	 */
 	@PostMapping("/create.do")
 	public String createBoard(@ModelAttribute("boardVo") BoardVo boardVo,
-							  @AuthenticationPrincipal MemberVo memberVo,
+							  @AuthenticationPrincipal PersonVo personVo,
 							  HttpSession session) {
 
         // 세션에서 조회한 사용자를 작성로 설정
-        boardVo.setMemberId(memberVo.getMemberId());
+        boardVo.setPersonId(personVo.getPersonId());
         
 		boardService.createBoard(boardVo);
 		return "redirect:/board/list.do";	// 목록 요청(listBoard() 호출)
@@ -106,11 +106,11 @@ public class BoardController {
 	 */
 	@PostMapping("/update.do")
 	public String updateBoard(@ModelAttribute("boardVo") BoardVo boardVo,
-							  @AuthenticationPrincipal MemberVo memberVo,
+							  @AuthenticationPrincipal PersonVo personVo,
 							  HttpSession session) {
 
         // 세션에서 조회한 사용자를 작성로 설정
-        boardVo.setMemberId(memberVo.getMemberId());
+        boardVo.setPersonId(personVo.getPersonId());
         
 		boardService.updateBoard(boardVo);
 		return "redirect:/board/list.do";	// 목록 요청(listBoard() 호출)

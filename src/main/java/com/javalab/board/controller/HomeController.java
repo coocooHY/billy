@@ -37,7 +37,7 @@ public class HomeController {
                 .bno(1)
                 .title("제목1")
                 .content("내용1")
-                .memberId("java")
+                .personId("java")
                 .regDate(new Date())
                 .build();
 

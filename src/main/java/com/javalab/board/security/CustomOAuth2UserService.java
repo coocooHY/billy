@@ -1,9 +1,8 @@
 package com.javalab.board.security;
 
 import com.javalab.board.dto.CustomUser;
-import com.javalab.board.dto.SocialMemberDto;
-import com.javalab.board.service.MemberService;
-import com.javalab.board.vo.MemberVo;
+import com.javalab.board.service.PersonService;
+import com.javalab.board.vo.PersonVo;
 import com.javalab.board.vo.Role;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
@@ -22,7 +21,7 @@ import java.util.stream.Collectors;
 @RequiredArgsConstructor
 public class CustomOAuth2UserService extends DefaultOAuth2UserService {
 
-    private final MemberService memberService;
+    private final PersonService personService;
     private final PasswordEncoder passwordEncoder;
 
     @Override
@@ -59,13 +58,13 @@ public class CustomOAuth2UserService extends DefaultOAuth2UserService {
 
     private OAuth2User generateDTO(String email, String name, Map<String, Object> params) {
 
-        MemberVo result = memberService.findMemberByEmail(email);
+        PersonVo result = personService.findPersonByEmail(email);
 
         if (result == null) {
             log.info("소셜로그인 사용자가 디비에 존재하지 않습니다.");
 
-            // UUID를 사용하여 고유한 memberId 생성
-            String uuidMemberId = UUID.randomUUID().toString();
+            // UUID를 사용하여 고유한 personId 생성
+            String uuidPersonId = UUID.randomUUID().toString();
             String encodedPassword = passwordEncoder.encode("1111");
 
             // 새로운 사용자 생성 및 기본 역할 설정
@@ -74,30 +73,28 @@ public class CustomOAuth2UserService extends DefaultOAuth2UserService {
             role.setRoleName("ROLE_USER");
             List<Role> roles = Collections.singletonList(role);
 
-            MemberVo member = MemberVo.builder()
-                    .memberId(uuidMemberId)
+            PersonVo person = PersonVo.builder()
+                    .personId(uuidPersonId)
                     .password(encodedPassword)
                     .name(name != null ? name : "social user")
                     .email(email)
-                    .point(0)
-                    .del(0)
-                    .social(1)
+                    .totalPoints(0)
                     .roles(roles)
                     .attributes(params)
                     .build();
 
-            memberService.saveMemberWithRole(member);
+            personService.savePersonWithRole(person);
 
-            log.info("CustomOAuth2UserService 저장 완료후 member....{}", member);
+            log.info("CustomOAuth2UserService 저장 완료후 person....{}", person);
 
             List<SimpleGrantedAuthority> authorities = roles.stream()
                     .map(r -> new SimpleGrantedAuthority(r.getRoleName()))
                     .collect(Collectors.toList());
 
-            log.info("member.getRoles() {}", member.getRoles());
+            log.info("person.getRoles() {}", person.getRoles());
 
 
-            return new CustomUser(member, params);
+            return new CustomUser(person, params);
 
         } else {
 

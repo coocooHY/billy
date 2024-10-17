@@ -30,7 +30,7 @@ public class BoardVo implements Serializable {
 	private int bno;			// 게시물번호	
 	private String title;		// 게시물 제목
 	private String content;		// 게시물 내용
-	private String memberId;	// 게시물 작성자ID
+	private String personId;	// 게시물 작성자ID
 	private int hitNo;			// 조회수
 	// 날짜 바인딩 패턴 : yyyy-MM-dd
 	@DateTimeFormat(pattern = "yyyy-MM-dd")

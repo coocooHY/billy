@@ -3,7 +3,7 @@ package com.javalab.board.service;
 import java.util.List;
 
 import com.javalab.board.repository.BoardMapper;
-import com.javalab.board.repository.MemberMapper;
+import com.javalab.board.repository.PersonMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -31,7 +31,7 @@ public class BoardServiceImpl implements BoardService{
 	
 	// 멤버 매퍼 인터페이스
 	@Autowired
-    private MemberMapper memberMapper;
+    private PersonMapper personMapper;
 	
 	// 게시물 내용 보기
 	@Override
@@ -71,7 +71,7 @@ public class BoardServiceImpl implements BoardService{
 		
 	    if (result > 0) {
 	    	// 게시물 작성 회원 포인트 증가
-	        //memberMapper.updateMemberPoint(boardVo.getMemberId());
+	        //personMapper.updatePersonPoint(boardVo.getPersonId());
 	    }
 	    return result;
 	}
@@ -86,7 +86,7 @@ public class BoardServiceImpl implements BoardService{
 		
 		if (result > 0) {
 			// 게시물 작성 회원 포인트 증가
-			memberMapper.updateMemberPoint(boardVo.getMemberId());
+			personMapper.updatePersonPoint(boardVo.getPersonId());
 		}
 		return result;
 	}
