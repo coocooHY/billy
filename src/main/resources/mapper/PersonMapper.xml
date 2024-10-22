@@ -5,17 +5,17 @@
 
 <mapper namespace="com.javalab.board.repository.PersonMapper">
 
-    <!-- Person ResultMap -->
-    <resultMap id="personMap" type="com.javalab.board.vo.PersonVo">
-        <id property="personId" column="person_id"/>
-        <result property="password" column="password"/>
-        <result property="name" column="name"/>
-        <result property="email" column="email"/>
-        <result property="point" column="point"/>
-        <result property="del" column="del"/>
-        <result property="social" column="social"/>
-        <collection property="roles" ofType="com.javalab.board.vo.Role" resultMap="roleResultMap"/>
-    </resultMap>
+    <!--    &lt;!&ndash; Person ResultMap &ndash;&gt;-->
+    <!--    <resultMap id="personMap" type="com.javalab.board.vo.PersonVo">-->
+    <!--        <id property="personId" column="person_id"/>-->
+    <!--        <result property="password" column="password"/>-->
+    <!--        <result property="name" column="name"/>-->
+    <!--        <result property="email" column="email"/>-->
+    <!--        <result property="point" column="point"/>-->
+    <!--        <result property="del" column="del"/>-->
+    <!--        <result property="social" column="social"/>-->
+    <!--        <collection property="roles" ofType="com.javalab.board.vo.Role" resultMap="roleResultMap"/>-->
+    <!--    </resultMap>-->
 
     <!-- Role ResultMap -->
     <resultMap id="roleResultMap" type="com.javalab.board.vo.Role">
@@ -23,22 +23,24 @@
         <result property="roleName" column="role_name"/>
     </resultMap>
 
-    <!-- 회원 아이디를 통해 회원 정보 조회 -->
-    <select id="findPersonById" parameterType="string" resultMap="personMap">
-        SELECT m.personId,
-        m.password,
-        m.name,
-        m.email,
-        m.point,
-        m.del,
-        m.social,
-        ro.role_id,
-        ro.role_name
-        FROM person m
-        LEFT JOIN person_role mr ON m.person_id = mr.person_id
-        LEFT JOIN role ro ON mr.role_id = ro.role_id
-        WHERE m.person_id = #{personId}
+    <select id="getPersonById" parameterType="String" resultType="PersonVo">
+        SELECT person_id, password
+        FROM person
+        WHERE person_id = #{personId}
     </select>
+
+    <!-- Result map for person -->
+    <resultMap id="personMap" type="com.javalab.board.dto.PersonDto">
+        <result property="personId" column="person_id"/>
+        <result property="password" column="password"/>
+        <result property="name" column="name"/>
+        <result property="email" column="email"/>
+        <result property="point" column="point"/>
+        <result property="del" column="del"/>
+        <result property="social" column="social"/>
+        <result property="roles" column="role_name"/>
+    </resultMap>
+
 
     <!-- 소셜로그인시 이메일을 통해 회원 정보 조회 -->
     <select id="login" parameterType="string" resultMap="personMap">

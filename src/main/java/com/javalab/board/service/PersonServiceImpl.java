@@ -1,5 +1,6 @@
 package com.javalab.board.service;
 
+import com.javalab.board.dto.PersonDto;
 import com.javalab.board.dto.PersonFormDto;
 import com.javalab.board.repository.PersonMapper;
 import com.javalab.board.vo.PersonVo;
@@ -81,10 +82,13 @@ public class PersonServiceImpl implements PersonService {
     }
 
     @Override
-    public PersonVo findPersonById(String personId) {
-        return personMapper.findPersonById(personId);
+    public PersonVo login(String personId, String password) {
+        PersonVo person = personMapper.getPersonById(personId);
+        if (person != null && password.equals(person.getPassword())) {
+            return person;
+        }
+        return null;
     }
-
     @Override
     public List<PersonVo> findAllPersons() {
         return personMapper.findAllPersons();

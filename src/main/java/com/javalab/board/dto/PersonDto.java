@@ -21,6 +21,9 @@ import java.util.stream.Collectors;
 @ToString
 @Slf4j
 public class PersonDto  {
+
+    private String personId;
+    private String password;
     private static final long serialVersionUID = 1L;
 
     //private MemberVo memberVo;

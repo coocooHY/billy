@@ -64,6 +64,8 @@ public class SecurityConfig {
 				.formLogin(formLogin -> formLogin
 						.loginPage("/member/login.do")	// 로그인 페이지(MembmerController 에서 정의한 경로)
 						.loginProcessingUrl("/member/action.do") // 로그인 처리 URL, form 태그의 action 경로와 일치해야 함. 그래야 시큐리티가 인식하고 로그인 처리를 시작한다.
+						.usernameParameter("personId") // 폼에서 사용하는 아이디 필드명을 지정
+						.passwordParameter("password") // 비밀번호 필드명을 지정
 						.successHandler(authSucessHandler)
 						.failureHandler(authFailureHandler)
 				)

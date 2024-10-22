@@ -1,6 +1,7 @@
 package com.javalab.board.controller;
 
 import com.javalab.board.dto.CustomUser;
+import com.javalab.board.dto.PersonDto;
 import com.javalab.board.dto.PersonFormDto;
 import com.javalab.board.service.PersonService;
 import com.javalab.board.vo.PersonVo;
@@ -93,25 +94,24 @@ public class PersonController {
     /**
      * 사용자의 모든 정보를 수정하는 폼
      */
-    @GetMapping("/update.do/{personId}")
-    public String updateForm(@PathVariable("personId") String personId, Model model) {
-        // 처음 수정화면으로 온 경우와 수정 Post 메소드에서 온 경우 분리
-        if (!model.containsAttribute("personFormDto")) {
-            PersonVo personVo = personService.findPersonById(personId);
-            if (personVo != null) {
-                PersonFormDto personFormDto = new PersonFormDto();
-                personFormDto.setPersonId(personVo.getPersonId());
-                personFormDto.setName(personVo.getName());
-                personFormDto.setEmail(personVo.getEmail());
-                // 필요한 필드를 더 설정합니다.
-
-                model.addAttribute("personFormDto", personFormDto);
-            } else {
-                return "redirect:/person/list.do"; // 존재하지 않는 회원의 경우 리다이렉트
-            }
-        }
-        return "person/personUpdate"; // 수정 폼 페이지로 이동
-    }
+//    @GetMapping("/update.do/{personId}")
+//    public String updateForm(@PathVariable("personId") String personId, Model model) {
+//        // 처음 수정화면으로 온 경우와 수정 Post 메소드에서 온 경우 분리
+//        if (!model.containsAttribute("personFormDto")) {
+//            PersonDto personDto = personService.findPersonById(personId);
+//            if (personDto != null) {
+//                PersonFormDto personFormDto = new PersonFormDto();
+//                personFormDto.setName(personVo.getName());
+//                personFormDto.setEmail(personVo.getEmail());
+//                // 필요한 필드를 더 설정합니다.
+//
+//                model.addAttribute("personFormDto", personFormDto);
+//            } else {
+//                return "redirect:/person/list.do"; // 존재하지 않는 회원의 경우 리다이렉트
+//            }
+//        }
+//        return "person/personUpdate"; // 수정 폼 페이지로 이동
+//    }
 
     /**
      * 사용자의 모든 정보를 수정하는 처리
