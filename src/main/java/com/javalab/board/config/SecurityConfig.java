@@ -74,8 +74,10 @@ public class SecurityConfig {
 						.deleteCookies("JSESSIONID")
 				)
 				.authorizeHttpRequests(authorize -> authorize
-						.requestMatchers("/css/**", "/js/**", "/images/**", "/fonts/**", "/ckeditor2/**", "/vendor/**", "/assets/**", "index", "/").permitAll()
-						.requestMatchers("/member/login.do","/member/logout.do", "/member/action", "/member/join.do/**", "/member/modify.do").permitAll()
+						.requestMatchers("/css/**", "/js/**", "/images/**", "/fonts/**", "/ckeditor2/**", "/vendor/**", "/assets/**", "index", "/", "/img/**", "/lib/**", "/scss/**").permitAll()
+						.requestMatchers("/member/join", "/member/join/**").permitAll()
+						.requestMatchers("/member/**").permitAll()
+						.requestMatchers("/member/login.do/**").permitAll()
 						.requestMatchers( "/board/detail.do/*").hasRole("USER")
 						.requestMatchers("/board/list.do/**", "/board/create.do/**", "/board/update.do/**", "/board/delete").hasRole("USER")
 						.requestMatchers("/admin/**").hasRole("ADMIN")

@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Billy 회원가입</title>
+    <link href="https://fonts.googleapis.com/css2?family=Abril+Fatface&family=Open+Sans:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Open Sans', sans-serif;
+            background-color: #f0f2f5;
+            margin: 0;
+            padding: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
+        .container {
+            display: flex;
+            background-color: white;
+            border-radius: 10px;
+            box-shadow: 0 0 20px rgba(0,0,0,0.1);
+            width: 100%;
+            max-width: 1000px;
+            overflow: hidden;
+        }
+        .form-area {
+            padding: 40px;
+            width: 60%;
+        }
+        .card {
+            padding: 40px;
+            width: 40%;
+            background-color: #f93f4c;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            color: white;
+            position: relative;
+        }
+        .logo {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            font-size: 24px;
+            font-weight: bold;
+            font-family: 'Abril Fatface', cursive;
+        }
+        h2 {
+            text-align: center;
+            color: #333;
+            margin-bottom: 30px;
+            font-size: 28px;
+        }
+        form {
+            display: flex;
+            flex-direction: column;
+        }
+        label {
+            margin-top: 15px;
+            font-weight: bold;
+            color: #555;
+        }
+        input[type="text"], input[type="email"], input[type="password"], input[type="date"], input[type="file"] {
+            width: 100%;
+            padding: 10px;
+            margin-top: 5px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            box-sizing: border-box;
+            font-size: 16px;
+        }
+        button {
+            background: #f93f4c;
+            color: white;
+            padding: 6px 12px;
+            border: none;
+            border-radius: 20px;
+            cursor: pointer;
+            margin: 20px auto 0;
+            font-size: 14px;
+            width: auto;
+            max-width: 150px;
+            display: block;
+        }
+        button:hover {
+            background-color: #e62e3c;
+        }
+        .error {
+            color: #f93f4c;
+            font-size: 0.9em;
+            margin-top: 5px;
+        }
+        .card h1 {
+            font-size: 32px;
+            margin-bottom: 20px;
+
+        }
+        .card-content {
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            height: 100%;
+        }
+        .card-image {
+            width: 150px;
+            height: 150px;
+            margin: 0 auto 20px;
+            background-image: url('path_to_your_image.jpg');
+            background-size: cover;
+            background-position: center;
+            border-radius: 50%;
+        }
+        .card-footer {
+            margin-top: auto;
+        }
+        .card-footer h5 {
+            font-size: 14px;
+            margin-bottom: 5px;
+            font-weight: normal;
+        }
+        #imagePreview {
+            margin-top: 10px;
+            text-align: center;
+        }
+        #imagePreview img {
+            max-width: 200px;
+            max-height: 200px;
+            object-fit: cover;
+            border-radius: 50%;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <div class="card">
+        <div class="logo">Billy</div>
+        <div class="card-content">
+            <div class="card-image"></div>
+            <h1>Billy 개인 회원가입</h1>
+            <div class="card-footer">
+                <h5>Billy 회원가입 후 다양한 혜택을 누려보세요!</h5>
+                <h5>간편하고 신속한 가입으로<br> 개인화된 서비스를 제공합니다.</h5>
+            </div>
+        </div>
+    </div>
+    <div class="form-area">
+        <h2>회원가입</h2>
+        <form th:action="@{/member/join}" th:object="${memberVo}" method="post" enctype="multipart/form-data">
+            <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />
+            <label for="memberId">아이디</label>
+            <input type="text" id="memberId" th:field="*{memberId}" placeholder="아이디는 영문 및 숫자를 포함하여 5자 이상이어야 합니다.">
+            <div th:if="${#fields.hasErrors('memberId')}" th:errors="*{memberId}" class="error"></div>
+
+            <label for="password">비밀번호</label>
+            <input type="password" id="password" th:field="*{password}" placeholder="비밀번호는 대소문자, 숫자 및 특수문자를 포함하여 5자 이상이어야 합니다.">
+            <div th:if="${#fields.hasErrors('password')}" th:errors="*{password}" class="error"></div>
+
+            <label for="confirmPassword">비밀번호 확인</label>
+            <input type="password" id="confirmPassword" th:field="*{confirmPassword}" placeholder="비밀번호를 다시 한번 입력해주세요.">
+            <div th:if="${#fields.hasErrors('confirmPassword')}" th:errors="*{confirmPassword}" class="error"></div>
+
+            <label for="name">이름</label>
+            <input type="text" id="name" th:field="*{name}" placeholder="이름은 한글 또는 영문으로 두 글자 이상이어야 합니다.">
+            <div th:if="${#fields.hasErrors('name')}" th:errors="*{name}" class="error"></div>
+
+            <label for="birth">생년월일</label>
+            <input type="date" id="birth" th:field="*{birth}">
+            <div th:if="${#fields.hasErrors('birth')}" th:errors="*{birth}" class="error"></div>
+
+            <label for="tel">전화번호</label>
+            <input type="text" id="tel" th:field="*{tel}" placeholder="전화번호는 '-'를 제외한 10자리 또는 11자리 숫자만 입력해야 합니다.">
+            <div th:if="${#fields.hasErrors('tel')}" th:errors="*{tel}" class="error"></div>
+
+            <label for="email">이메일</label>
+            <input type="email" id="email" th:field="*{email}" placeholder="올바른 이메일 형식을 입력해야 합니다.">
+            <div th:if="${#fields.hasErrors('email')}" th:errors="*{email}" class="error"></div>
+
+            <label for="address">주소</label>
+            <input type="text" id="address" th:field="*{address}" placeholder="시, 군, 구까지 입력해야 합니다.">
+            <div th:if="${#fields.hasErrors('address')}" th:errors="*{address}" class="error"></div>
+
+            <label for="file">프로필 사진</label>
+            <input type="file" id="file" name="file" onchange="previewImage(event)">
+            <div id="imagePreview"></div>
+            <div th:if="${#fields.hasErrors('fileName')}" th:errors="*{fileName}" class="error"></div>
+
+            <input type="hidden" th:field="*{locationId}">
+            <input type="hidden" th:field="*{gradeId}">
+            <input type="hidden" th:field="*{transCount}">
+            <input type="hidden" th:field="*{totalPoints}">
+
+            <button type="submit">가입하기</button>
+        </form>
+    </div>
+</div>
+
+<script>
+    function previewImage(event) {
+        var input = event.target;
+        var previewDiv = document.getElementById('imagePreview');
+        previewDiv.innerHTML = '';
+
+        if (input.files && input.files[0]) {
+            var reader = new FileReader();
+            reader.onload = function (e) {
+                var img = document.createElement('img');
+                img.src = e.target.result;
+                img.alt = 'Profile Image';
+                img.style.maxWidth = '200px';
+                img.style.maxHeight = '200px';
+                img.style.objectFit = 'contain';
+                previewDiv.appendChild(img);
+            };
+            reader.readAsDataURL(input.files[0]);
+        }
+    }
+</script>
+</body>
+</html>
