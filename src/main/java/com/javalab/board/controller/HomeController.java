@@ -9,7 +9,7 @@ import java.util.Date;
 
 @Controller
 public class HomeController {
-    @GetMapping("/")
+    @GetMapping("/index")
     public String home(Model model) {
         // 홈 페이지에서 필요한 모델 속성 추가
         model.addAttribute("officeTitle", "Our Office");

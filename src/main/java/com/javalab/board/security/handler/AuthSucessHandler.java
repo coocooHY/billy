@@ -17,15 +17,14 @@ import java.io.IOException;
 @RequiredArgsConstructor
 @Component
 public class AuthSucessHandler extends SimpleUrlAuthenticationSuccessHandler {
-	
+
 	//private final LoginMapper loginMapper;
-	
+
 	@Override
     public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response, Authentication authentication) throws IOException, ServletException {
-        
-        //memberRepository.updateMemberLastLogin(authentication.getName(), LocalDateTime.now());
-        setDefaultTargetUrl("/board/list.do"); // 컨트롤러에 "/" 요청
-        
-        super.onAuthenticationSuccess(request, response, authentication);
+
+        // 로그인 성공 후 redirect URL
+        response.sendRedirect("/index");
+
     }
 }

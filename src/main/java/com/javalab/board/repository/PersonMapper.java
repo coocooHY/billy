@@ -1,5 +1,6 @@
 package com.javalab.board.repository;
 
+import com.javalab.board.dto.PersonDto;
 import com.javalab.board.vo.PersonVo;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
@@ -18,11 +19,10 @@ public interface PersonMapper {
     // 소셜로그인의 경우 이메일을 통해 회원 정보 조회 (로그인 용도)
     PersonVo login(@Param("email") String email);
 
-    // 회원 아이디를 통해 회원 정보 조회
-    PersonVo findById(@Param("personId") String personId);
+    PersonVo getPersonById(String personId);
 
     // 소셜 로그인 정보를 통해 회원 정보 조회
-    PersonVo findPersonById(@Param("personId") String personId);
+    PersonDto findPersonById(@Param("personId") String personId);
 
     // 모든 회원 정보 조회
     List<PersonVo> findAllPersons();

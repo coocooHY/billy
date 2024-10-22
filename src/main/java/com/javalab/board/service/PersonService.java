@@ -1,11 +1,14 @@
 package com.javalab.board.service;
 
+import com.javalab.board.dto.PersonDto;
 import com.javalab.board.dto.PersonFormDto;
 import com.javalab.board.vo.PersonVo;
 
 import java.util.List;
 
 public interface PersonService {
+
+
 
     // 일반적인 회원 저장
     void savePerson(PersonFormDto personFormDto);
@@ -19,7 +22,7 @@ public interface PersonService {
     // 소셜 로그인 회원 저장 및 권한 저장
     void savePersonWithRole(PersonVo person);
 
-    PersonVo findPersonById(String personId);
+    PersonVo login(String personId, String password);
 
     List<PersonVo> findAllPersons();
 
